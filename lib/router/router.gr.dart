@@ -12,25 +12,29 @@ import 'package:flutter/material.dart';
 import '../features/login/models/user_profile.dart';
 import '../features/login/ui/login_view.dart';
 import '../features/pacient/ui/pacient_profile_view.dart';
+import '../features/pacient/ui/pacient_theme_view.dart';
 import '../features/pacient/ui/pacient_view.dart';
 
 class Routes {
   static const String loginView = '/';
   static const String pacientView = '/pacient-view';
+  static const String pacientThemeView = '/pacient-theme-view';
   static const String pacientProfileView = '/pacient-profile-view';
   static const all = <String>{
     loginView,
     pacientView,
+    pacientThemeView,
     pacientProfileView,
   };
 }
 
-class Router extends RouterBase {
+class AppRouter extends RouterBase {
   @override
   List<RouteDef> get routes => _routes;
   final _routes = <RouteDef>[
     RouteDef(Routes.loginView, page: LoginView),
     RouteDef(Routes.pacientView, page: PacientView),
+    RouteDef(Routes.pacientThemeView, page: PacientThemeView),
     RouteDef(Routes.pacientProfileView, page: PacientProfileView),
   ];
   @override
@@ -45,6 +49,15 @@ class Router extends RouterBase {
     PacientView: (data) {
       return MaterialPageRoute<dynamic>(
         builder: (context) => PacientView(),
+        settings: data,
+      );
+    },
+    PacientThemeView: (data) {
+      final args = data.getArgs<PacientThemeViewArguments>(
+        orElse: () => PacientThemeViewArguments(),
+      );
+      return MaterialPageRoute<dynamic>(
+        builder: (context) => PacientThemeView(profile: args.profile),
         settings: data,
       );
     },
@@ -63,6 +76,12 @@ class Router extends RouterBase {
 /// ************************************************************************
 /// Arguments holder classes
 /// *************************************************************************
+
+/// PacientThemeView arguments holder class
+class PacientThemeViewArguments {
+  final UserProfile profile;
+  PacientThemeViewArguments({this.profile});
+}
 
 /// PacientProfileView arguments holder class
 class PacientProfileViewArguments {

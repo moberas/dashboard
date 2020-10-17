@@ -38,16 +38,11 @@ class CpfCnpjTextField extends StatelessWidget {
       keyboardType: TextInputType.number,
       style: Theme.of(context).textTheme.headline5,
       decoration: InputDecoration(
-        labelText: 'CPF',
+        labelText: 'CPF do paciente',
         alignLabelWithHint: true,
         labelStyle: Theme.of(context).textTheme.subtitle1,
         hintText: 'CPF',
         contentPadding: const EdgeInsets.all(8),
-        border: OutlineInputBorder(
-          borderRadius: const BorderRadius.all(
-            Radius.circular(12),
-          ),
-        ),
       ),
     );
   }

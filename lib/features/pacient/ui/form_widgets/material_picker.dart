@@ -1,17 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_colorpicker/flutter_colorpicker.dart';
-import 'package:moberas_dashboard/features/pacient/ui/pacient_profile_viewmodel.dart';
+import 'package:moberas_dashboard/features/pacient/ui/pacient_theme_viewmodel.dart';
 import 'package:stacked/stacked.dart';
 
 // ignore: must_be_immutable
-class MoberasMaterialPicker extends ViewModelWidget<PacientProfileViewModel> {
+class MoberasMaterialPicker extends ViewModelWidget<PacientThemeViewModel> {
   String label;
   Color pickerColor;
   Function(Color) onChanged;
   MoberasMaterialPicker(this.label, this.pickerColor, this.onChanged);
 
   @override
-  Widget build(BuildContext context, PacientProfileViewModel model) {
+  Widget build(BuildContext context, PacientThemeViewModel model) {
     return Builder(
         builder: (context) => Column(
               mainAxisAlignment: MainAxisAlignment.start,

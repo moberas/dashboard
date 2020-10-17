@@ -5,7 +5,6 @@ import 'package:moberas_dashboard/commons/login_button.dart';
 import 'package:moberas_dashboard/commons/password_text_field.dart';
 import 'package:moberas_dashboard/commons/ui_helpers.dart';
 import 'package:moberas_dashboard/commons/validators.dart';
-
 import 'package:stacked/stacked.dart';
 import 'package:string_validator/string_validator.dart';
 
@@ -65,13 +64,14 @@ class _LoginViewState extends State<LoginView> {
               child: Container(
                 height: MediaQuery.of(context).size.height,
                 decoration: BoxDecoration(
-                    gradient: LinearGradient(
-                        begin: Alignment.topRight,
-                        end: Alignment.bottomRight,
-                        colors: [
-                      Theme.of(context).primaryColor,
-                      Colors.white
-                    ])),
+                  gradient: LinearGradient(
+                      begin: Alignment.topRight,
+                      end: Alignment.bottomRight,
+                      colors: <Color>[
+                        Theme.of(context).primaryColor,
+                        Colors.white
+                      ]),
+                ),
                 child: Padding(
                   padding: const EdgeInsets.all(14.0),
                   child: Form(

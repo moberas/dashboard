@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:moberas_dashboard/features/login/models/user_profile.dart';
+import 'package:moberas_dashboard/features/pacient/ui/pacient_theme_form.dart';
+import 'package:moberas_dashboard/features/pacient/ui/pacient_theme_viewmodel.dart';
 import 'package:stacked/stacked.dart';
 
-import 'pacient_profile_viewmodel.dart';
-
-class PacientProfileView extends StatelessWidget {
+class PacientThemeView extends StatelessWidget {
   final UserProfile profile;
-  PacientProfileView({this.profile});
+  PacientThemeView({this.profile});
 
   Widget createTextWidget(String text) {
     return Text(
@@ -29,7 +29,6 @@ class PacientProfileView extends StatelessWidget {
           children: <Widget>[
             createTextWidget('Nome: ' + pacient.displayName),
             createTextWidget('Pontuação: ' + pacient.score.toString()),
-            createTextWidget('Passos: ' + pacient.score.toString()),
           ],
         ),
       ),
@@ -42,8 +41,8 @@ class PacientProfileView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ViewModelBuilder<PacientProfileViewModel>.reactive(
-      viewModelBuilder: () => PacientProfileViewModel(profile),
+    return ViewModelBuilder<PacientThemeViewModel>.reactive(
+      viewModelBuilder: () => PacientThemeViewModel(profile),
       builder: (context, model, child) => !model.isBusy
           ? Scaffold(
               appBar: AppBar(
@@ -56,7 +55,9 @@ class PacientProfileView extends StatelessWidget {
                   createPacientInfoBox(context, profile),
                   Expanded(
                     flex: 1,
-                    child: Container(),
+                    child: Container(
+                      child: PacientThemeForm(),
+                    ),
                   ),
                 ],
               ),

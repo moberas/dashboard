@@ -5,7 +5,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:logging/logging.dart';
 import 'package:moberas_dashboard/features/login/models/user_profile.dart';
 import 'package:moberas_dashboard/features/pacient/models/theme_cfg.dart';
-
 import 'package:rxdart/rxdart.dart';
 
 import 'globals.dart';
@@ -50,7 +49,7 @@ class Document<T> {
 class Collection<T> {
   final Firestore _db = Firestore.instance;
   final String path;
-  CollectionReference ref;
+  Query ref;
 
   Collection({this.path}) {
     ref = _db.collection(path);

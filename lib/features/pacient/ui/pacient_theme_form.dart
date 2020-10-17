@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_colorpicker/flutter_colorpicker.dart';
 import 'package:moberas_dashboard/features/pacient/ui/form_widgets/headline_2_theme_row.dart';
-import 'package:moberas_dashboard/features/pacient/ui/pacient_profile_viewmodel.dart';
+import 'package:moberas_dashboard/features/pacient/ui/pacient_theme_viewmodel.dart';
 import 'package:stacked/stacked.dart';
 
 import 'form_widgets/headline_1_theme_row.dart';
 import 'form_widgets/headline_3_theme_row.dart';
 import 'form_widgets/moberas_button_theme.dart';
 
-class PacientThemeForm extends ViewModelWidget<PacientProfileViewModel> {
+class PacientThemeForm extends ViewModelWidget<PacientThemeViewModel> {
   @override
-  Widget build(BuildContext context, PacientProfileViewModel model) {
+  Widget build(BuildContext context, PacientThemeViewModel model) {
     return Scaffold(
         bottomNavigationBar: RaisedButton(
           onPressed: () => model.updateTheme(),

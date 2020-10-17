@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:moberas_dashboard/features/pacient/ui/pacient_profile_viewmodel.dart';
+import 'package:moberas_dashboard/features/pacient/ui/pacient_theme_viewmodel.dart';
 import 'package:stacked/stacked.dart';
 
 import 'material_picker.dart';
 
-class Headline2Row extends ViewModelWidget<PacientProfileViewModel> {
+class Headline2Row extends ViewModelWidget<PacientThemeViewModel> {
   @override
-  Widget build(BuildContext context, PacientProfileViewModel model) {
+  Widget build(BuildContext context, PacientThemeViewModel model) {
     return Container(
       decoration: BoxDecoration(
         border: Border.all(),

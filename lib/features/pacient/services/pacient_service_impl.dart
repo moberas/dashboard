@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:cloud_functions/cloud_functions.dart';
 import 'package:injectable/injectable.dart';
 import 'package:logging/logging.dart';
@@ -22,11 +23,16 @@ class IPacientServiceImpl extends IPacientService {
 
   @override
   Future<List<UserProfile>> findByNameOrCpf(String name, String cpf) async {
-    var collectionReference = Collection<UserProfile>(path: 'users').ref;
-    name ??
-        collectionReference.where('displayName', isGreaterThanOrEqualTo: name);
-    cpf ?? collectionReference.where('cpf', isEqualTo: cpf);
-    var snapshots = await collectionReference.getDocuments();
+    Query query = Collection<UserProfile>(path: 'users').ref;
+    Map<String, dynamic> filters = {};
+    if (name != null && name.isNotEmpty) {
+      query = query.where('displayName', isGreaterThanOrEqualTo: name);
+    }
+    if (cpf != null && cpf.isNotEmpty) {
+      query = query.where('cpf', isEqualTo: cpf);
+    }
+
+    var snapshots = await query.getDocuments();
     return snapshots.documents
         .map((doc) => UserProfile.fromData(doc.data))
         .toList();
