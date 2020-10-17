@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:moberas_dashboard/commons/cpf_cnpj_text_form_field.dart';
+import 'package:moberas_dashboard/database/firestore.dart';
 import 'package:moberas_dashboard/features/login/models/user_profile.dart';
+import 'package:moberas_dashboard/features/pacient/models/theme_cfg.dart';
 import 'package:moberas_dashboard/features/pacient/services/pacient_service_interface.dart';
 
 import 'package:stacked/stacked.dart';
@@ -19,19 +22,17 @@ class PacientView extends StatelessWidget {
               body: SafeArea(
                 child: Column(
                   children: [
-                    TextField(
-                      controller: model.nameController,
-                      keyboardType: TextInputType.name,
-                      enableSuggestions: true,
-                      decoration: InputDecoration(labelText: 'Nome'),
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: TextField(
+                        controller: model.nameController,
+                        keyboardType: TextInputType.name,
+                        enableSuggestions: true,
+                        decoration: InputDecoration(labelText: 'Nome'),
+                      ),
                     ),
-                    TextField(
-                      controller: model.cpfController,
-                      keyboardType: TextInputType.numberWithOptions(
-                          signed: false, decimal: false),
-                      enableSuggestions: true,
-                      decoration: InputDecoration(labelText: 'CPF'),
-                    ),
+                    CpfCnpjTextField(
+                        controller: model.cpfController, validator: null),
                     MaterialButton(
                       onPressed: () => model.findPacientByNameOrCpf(),
                       child: Text('Pesquisar'),
@@ -61,7 +62,7 @@ class _PacientList extends ViewModelWidget<PacientViewModel> {
                 itemCount: viewModel.pacients?.length,
                 itemBuilder: (context, index) => Container(
                     child: Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     Padding(
@@ -158,5 +159,10 @@ class _PacientList extends ViewModelWidget<PacientViewModel> {
             ),
           );
         });
+  }
+
+  savetemplate() {
+    Document(path: '/preferences/textTheme')
+        .upsert(ThemeCfg.defaultTheme().toJson());
   }
 }

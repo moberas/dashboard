@@ -30,10 +30,7 @@ class PacientProfileView extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
             createTextWidget('Nome: ' + pacient.displayName),
-            createTextWidget(
-                'Status: ' + _getPacientStatusString(pacient.online)),
             createTextWidget('Pontuação: ' + pacient.score.toString()),
-            createTextWidget('ID: ' + pacient.uid),
           ],
         ),
       ),
@@ -47,25 +44,27 @@ class PacientProfileView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ViewModelBuilder<PacientProfileViewModel>.reactive(
-      viewModelBuilder: () => PacientProfileViewModel(),
-      builder: (context, model, child) => Scaffold(
-        appBar: AppBar(
-          backgroundColor: Theme.of(context).primaryColor,
-          title: Text('Perfil'),
-        ),
-        body: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            createPacientInfoBox(context, profile),
-            Expanded(
-              flex: 1,
-              child: Container(
-                child: PacientThemeForm(),
+      viewModelBuilder: () => PacientProfileViewModel(profile),
+      builder: (context, model, child) => !model.isBusy
+          ? Scaffold(
+              appBar: AppBar(
+                backgroundColor: Theme.of(context).primaryColor,
+                title: Text('Perfil'),
               ),
-            ),
-          ],
-        ),
-      ),
+              body: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  createPacientInfoBox(context, profile),
+                  Expanded(
+                    flex: 1,
+                    child: Container(
+                      child: PacientThemeForm(),
+                    ),
+                  ),
+                ],
+              ),
+            )
+          : Container(),
     );
   }
 }

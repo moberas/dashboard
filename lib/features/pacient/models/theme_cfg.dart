@@ -4,39 +4,43 @@ part 'theme_cfg.g.dart';
 
 @JsonSerializable()
 class ThemeCfg {
-  @JsonKey(fromJson: _doubleFromString)
-  final double bodyText1Size;
-  @JsonKey(fromJson: _doubleFromString)
-  final double bodyText2Size;
-  @JsonKey(fromJson: _doubleFromString)
-  final double headline1Size;
-  @JsonKey(fromJson: _doubleFromString)
-  final double headline2Size;
-  @JsonKey(fromJson: _doubleFromString)
-  final double headline3Size;
-  @JsonKey(fromJson: _doubleFromString)
-  final double headline4Size;
-  @JsonKey(fromJson: _doubleFromString)
-  final double headline5;
-  @JsonKey(fromJson: _doubleFromString)
-  final double headline6Size;
-  @JsonKey(fromJson: _doubleFromString)
-  final double subtitle1Size;
-  @JsonKey(fromJson: _doubleFromString)
-  final double subtitle2Size;
-  @JsonKey(fromJson: _doubleFromString)
-  final double buttonSize;
-  @JsonKey(fromJson: _doubleFromString)
-  final double captionSize;
-  @JsonKey(fromJson: _doubleFromString)
-  final double overlineSize;
-  final String primaryColor;
-  final String accentColor;
-  final String textColor;
-  final String buttonColor;
+  double bodyText1Size;
 
-  static double _doubleFromString(String size) =>
-      size == null ? null : double.tryParse(size);
+  double bodyText2Size;
+
+  double headline1Size;
+
+  double headline2Size;
+
+  double headline3Size;
+
+  double headline4Size;
+
+  double headline5;
+
+  double headline6Size;
+
+  double subtitle1Size;
+
+  double subtitle2Size;
+
+  double buttonSize;
+
+  double captionSize;
+
+  double overlineSize;
+  String primaryColor;
+  String accentColor;
+  String textColor;
+  String buttonColor;
+  String pushContainerColor;
+  String milestoneTileColor;
+  String cardColor;
+  String msgPanelTextColor;
+  String questionPanelTextColor;
+  String surveyItemTextColor;
+  String dynamicIntroTextColor;
+  String buttonTextColor;
 
   ThemeCfg(
       {this.bodyText1Size,
@@ -55,12 +59,44 @@ class ThemeCfg {
       this.primaryColor,
       this.accentColor,
       this.textColor,
-      this.buttonColor});
+      this.buttonColor,
+      this.pushContainerColor,
+      this.milestoneTileColor,
+      this.cardColor,
+      this.msgPanelTextColor,
+      this.questionPanelTextColor,
+      this.surveyItemTextColor,
+      this.dynamicIntroTextColor,
+      this.buttonTextColor});
 
   factory ThemeCfg.fromJson(Map<String, dynamic> json) =>
       _$ThemeCfgFromJson(json);
 
-  Map<String, String> toJson() => _$ThemeCfgToJson(this);
+  Map<String, dynamic> toJson() => _$ThemeCfgToJson(this);
 
-  factory ThemeCfg.defaultTheme() => ThemeCfg();
+  factory ThemeCfg.defaultTheme() => ThemeCfg(
+      buttonColor: '#4caf50',
+      buttonTextColor: '#4caf50',
+      buttonSize: 20.0,
+      captionSize: 12.0,
+      headline1Size: 50.0,
+      headline2Size: 50.0,
+      headline3Size: 35.0,
+      headline4Size: 30.0,
+      headline5: 25.0,
+      headline6Size: 20.0,
+      overlineSize: 10.0,
+      primaryColor: '#00796B',
+      pushContainerColor: '#02b5b5',
+      subtitle1Size: 16.0,
+      subtitle2Size: 14.0,
+      textColor: '#000000',
+      accentColor: '#00796B',
+      bodyText1Size: 22,
+      bodyText2Size: 14,
+      cardColor: '#00796B',
+      msgPanelTextColor: '#000000',
+      questionPanelTextColor: '#000000',
+      surveyItemTextColor: '#000000',
+      dynamicIntroTextColor: '#000000');
 }

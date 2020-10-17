@@ -71,16 +71,16 @@ class Collection<T> {
 }
 
 class UserThemeData {
-  final FirebaseAuth _auth = FirebaseAuth.instance;
+  Future<void> updateTheme(ThemeCfg themeCfg, String uid) async {
+    return Document<UserProfile>(
+            path: '/users/$uid/private_profile/$uid/preferences/theme')
+        .upsert(themeCfg.toJson());
+  }
 
-  Future<void> updateTheme(ThemeCfg themeCfg) async {
-    FirebaseUser user = await _auth.currentUser();
-    if (user != null) {
-      return Document<UserProfile>(
-              path:
-                  '/users/${user.uid}/private_profile/${user.uid}/preferences/theme')
-          .upsert(themeCfg.toJson());
-    }
+  Future<ThemeCfg> fetchTheme(String uid) async {
+    return Document<ThemeCfg>(
+            path: '/users/$uid/private_profile/$uid/preferences/theme')
+        .getData();
   }
 }
 
