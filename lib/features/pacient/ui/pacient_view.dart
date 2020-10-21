@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:moberas_dashboard/commons/busy_overlay.dart';
 import 'package:moberas_dashboard/commons/cpf_cnpj_text_form_field.dart';
 import 'package:moberas_dashboard/database/firestore.dart';
 import 'package:moberas_dashboard/features/login/models/user_profile.dart';
@@ -16,41 +17,45 @@ class PacientView extends StatelessWidget {
         viewModelBuilder: () => PacientViewModel(),
         builder: (context, model, child) => Scaffold(
               appBar: AppBar(
-                title: Text('MobEras'),
+                title: Text('mobEras - Dashboard'),
               ),
-              body: SafeArea(
-                child: Column(
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: TextField(
-                        controller: model.nameController,
-                        keyboardType: TextInputType.name,
-                        enableSuggestions: true,
-                        decoration:
-                            InputDecoration(labelText: 'Nome do paciente'),
+              body: BusyOverlay(
+                show: model.isBusy,
+                child: SafeArea(
+                  child: Column(
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: TextField(
+                          controller: model.nameController,
+                          keyboardType: TextInputType.name,
+                          enableSuggestions: true,
+                          decoration:
+                              InputDecoration(labelText: 'Nome do paciente'),
+                        ),
                       ),
-                    ),
-                    CpfCnpjTextField(
-                        controller: model.cpfController, validator: null),
-                    RaisedButton(
-                      elevation: 2,
-                      onPressed: () => model.findPacientByNameOrCpf(),
-                      child: Text(
-                        'Pesquisar',
-                        style: Theme.of(context)
-                            .textTheme
-                            .bodyText1
-                            .copyWith(color: Colors.white),
+                      CpfCnpjTextField(
+                          controller: model.cpfController, validator: null),
+                      RaisedButton(
+                        elevation: 2,
+                        onPressed: () => model.findPacientByNameOrCpf(),
+                        child: Text(
+                          'Pesquisar',
+                          style: Theme.of(context)
+                              .textTheme
+                              .bodyText1
+                              .copyWith(color: Colors.white),
+                        ),
+                        color:
+                            Theme.of(context).buttonTheme.colorScheme.primary,
                       ),
-                      color: Theme.of(context).buttonTheme.colorScheme.primary,
-                    ),
-                    Visibility(
-                      visible:
-                          model.pacients != null && model.pacients.isNotEmpty,
-                      child: Expanded(child: _PacientList()),
-                    )
-                  ],
+                      Visibility(
+                        visible:
+                            model.pacients != null && model.pacients.isNotEmpty,
+                        child: Expanded(child: _PacientList()),
+                      )
+                    ],
+                  ),
                 ),
               ),
             ));
@@ -77,36 +82,35 @@ class _PacientList extends ViewModelWidget<PacientViewModel> {
                         Padding(
                           padding: const EdgeInsets.all(8.0),
                           child: Text(
-                            '${viewModel.pacients[index].displayName} - ${viewModel.pacients[index].cpf}',
+                            '${viewModel.pacients[index]?.displayName} - ${viewModel.pacients[index]?.cpf}',
                             style: Theme.of(context).textTheme.bodyText1,
                           ),
                         ),
-                        ButtonBar(
-                          alignment: MainAxisAlignment.center,
-                          children: [
-                            FlatButton(
-                                shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(7.0),
-                                    side: BorderSide(
-                                        color: Theme.of(context).primaryColor)),
-                                onPressed: () => _messageModalBottomSheet(
-                                    context, viewModel.pacients[index]),
-                                child: Text(' Enviar Mensagem ')),
-                            FlatButton(
-                              shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(7.0),
-                                  side: BorderSide(
-                                      color: Theme.of(context).primaryColor)),
-                              onPressed: () {
-                                viewModel
-                                    .goToProfile(viewModel.pacients[index]);
-                              },
-                              child: Text(' Visualizar perfil '),
-                            )
-                          ],
-                        ),
                       ],
                     ),
+                    ButtonBar(
+                      alignment: MainAxisAlignment.center,
+                      children: [
+                        FlatButton(
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(7.0),
+                                side: BorderSide(
+                                    color: Theme.of(context).primaryColor)),
+                            onPressed: () => _messageModalBottomSheet(
+                                context, viewModel.pacients[index]),
+                            child: Text(' Enviar Mensagem ')),
+                        FlatButton(
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(7.0),
+                              side: BorderSide(
+                                  color: Theme.of(context).primaryColor)),
+                          onPressed: () {
+                            viewModel.goToProfile(viewModel.pacients[index]);
+                          },
+                          child: Text(' Visualizar perfil '),
+                        )
+                      ],
+                    )
                   ],
                 ),
               ),

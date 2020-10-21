@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:moberas_dashboard/features/login/models/user_profile.dart';
+import 'package:moberas_dashboard/features/response/model/milestone_response.dart';
 import 'package:stacked/stacked.dart';
 
 import 'pacient_profile_viewmodel.dart';
@@ -27,9 +28,12 @@ class PacientProfileView extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
-            createTextWidget('Nome: ' + pacient.displayName),
-            createTextWidget('Pontuação: ' + pacient.score.toString()),
-            createTextWidget('Passos: ' + pacient.score.toString()),
+            createTextWidget('Nome: ${pacient.displayName}'),
+            createTextWidget('Pontuação: ${pacient.score}'),
+            createTextWidget('Passos: ${pacient.totalSteps}'),
+            createTextWidget(
+              _getPacientStatusString(pacient.online),
+            ),
           ],
         ),
       ),
@@ -44,24 +48,43 @@ class PacientProfileView extends StatelessWidget {
   Widget build(BuildContext context) {
     return ViewModelBuilder<PacientProfileViewModel>.reactive(
       viewModelBuilder: () => PacientProfileViewModel(profile),
-      builder: (context, model, child) => !model.isBusy
-          ? Scaffold(
-              appBar: AppBar(
-                backgroundColor: Theme.of(context).primaryColor,
-                title: Text('Perfil'),
+      builder: (context, model, child) => Scaffold(
+        appBar: AppBar(
+          backgroundColor: Theme.of(context).primaryColor,
+          title: Text('Perfil'),
+        ),
+        body: SingleChildScrollView(
+          child: Column(
+            children: [
+              createPacientInfoBox(context, profile),
+              Container(
+                child: RaisedButton(
+                  child: Text('Tema do paciente'),
+                  onPressed: () => model.goToUserTheme(),
+                ),
               ),
-              body: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  createPacientInfoBox(context, profile),
-                  Expanded(
-                    flex: 1,
-                    child: Container(),
-                  ),
-                ],
+              Container(
+                child: RaisedButton(
+                  child: Text('Relatório questionário estático'),
+                  onPressed: () => model.goToMilestoneReport(),
+                ),
               ),
-            )
-          : Container(),
+              Container(
+                child: RaisedButton(
+                  child: Text('Relatório questionário dinamico'),
+                  onPressed: () => model.goToDynamicReport(),
+                ),
+              ),
+              Container(
+                child: RaisedButton(
+                  child: Text('Iniciar questionário dinamico'),
+                  onPressed: () => model.startDynamicSurvey(),
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
     );
   }
 }

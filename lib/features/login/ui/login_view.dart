@@ -61,6 +61,7 @@ class _LoginViewState extends State<LoginView> {
     return ViewModelBuilder<LoginViewModel>.reactive(
         viewModelBuilder: () => LoginViewModel(),
         builder: (context, model, child) => BusyOverlay(
+              show: model.isBusy,
               child: Container(
                 height: MediaQuery.of(context).size.height,
                 decoration: BoxDecoration(

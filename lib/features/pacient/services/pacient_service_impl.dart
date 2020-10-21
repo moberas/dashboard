@@ -5,11 +5,19 @@ import 'package:logging/logging.dart';
 import 'package:moberas_dashboard/database/firestore.dart';
 import 'package:moberas_dashboard/features/login/models/user_profile.dart';
 import 'package:moberas_dashboard/features/pacient/models/theme_cfg.dart';
+import 'package:moberas_dashboard/features/response/model/milestone_response.dart';
+import 'package:moberas_dashboard/features/response/model/activity_response.dart';
 
 import 'pacient_service_interface.dart';
 
 @LazySingleton(as: IPacientService)
 class IPacientServiceImpl extends IPacientService {
+  String dynamicResponsePath =
+      '/users/#uid/private_profile/#uid/survey/#uid/activities_responses';
+  String milestoneResponsePath =
+      '/users/#uid/private_profile/#uid/survey/#uid/milestone_responses';
+
+  final Firestore _firestore = Firestore.instance;
   final _log = Logger('IPacientService');
   final HttpsCallable callableMobErasPacientPush =
       CloudFunctions.instance.getHttpsCallable(
@@ -24,7 +32,7 @@ class IPacientServiceImpl extends IPacientService {
   @override
   Future<List<UserProfile>> findByNameOrCpf(String name, String cpf) async {
     Query query = Collection<UserProfile>(path: 'users').ref;
-    Map<String, dynamic> filters = {};
+
     if (name != null && name.isNotEmpty) {
       query = query.where('displayName', isGreaterThanOrEqualTo: name);
     }
@@ -56,4 +64,28 @@ class IPacientServiceImpl extends IPacientService {
   @override
   Future<UserProfile> fetchByUID({String uid}) async =>
       await UserProfileData().getDocument();
+
+  @override
+  Future<List<ActivityResponse>> fetchDynamicResponseList(String uid) async {
+    String path = dynamicResponsePath.replaceAll('#uid', uid);
+    return await Collection<ActivityResponse>(path: path).getData();
+  }
+
+  @override
+  Future<List<MilestoneResponse>> fetchMilestoneResponseList(String uid) async {
+    String path = milestoneResponsePath.replaceAll('#uid', uid);
+    return await Collection<MilestoneResponse>(path: path).getData();
+  }
+
+  @override
+  Stream<List<ActivityResponse>> streamDynamicResponseList(String uid) {
+    String path = dynamicResponsePath.replaceAll('#uid', uid);
+    return Collection<ActivityResponse>(path: path).streamData();
+  }
+
+  @override
+  Stream<List<MilestoneResponse>> streamMilestoneResponseList(String uid) {
+    String path = milestoneResponsePath.replaceAll('#uid', uid);
+    return Collection<MilestoneResponse>(path: path).streamData();
+  }
 }

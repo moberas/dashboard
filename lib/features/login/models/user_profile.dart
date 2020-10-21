@@ -14,6 +14,7 @@ class UserProfile {
   final String uid;
   final String cpf;
   final Map<String, int> steps;
+  final String status;
 
   UserProfile(
       {this.displayName,
@@ -24,7 +25,11 @@ class UserProfile {
       this.score,
       this.uid,
       this.cpf,
-      this.steps});
+      this.steps,
+      this.status});
+
+  int get totalSteps =>
+      this.steps.values.reduce((sum, element) => sum + element);
 
   factory UserProfile.fromData(Map<String, dynamic> data) {
     var up = null;
@@ -38,8 +43,9 @@ class UserProfile {
           online: data['online'] ?? false,
           score: data['score'] ?? 0,
           cpf: data['cpf'] ?? '111',
-          steps: Map<String, int>.from(data['steps'] ?? null),
-          uid: data['uid']);
+          steps: Map<String, int>.from(data['steps'] ?? {'10/10/2020:0'}),
+          uid: data['uid'],
+          status: data['status'] ?? 'inativo');
       return up;
     } catch (e) {
       Logger('UserProfile').severe('Erro fromData', e);

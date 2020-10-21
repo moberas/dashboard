@@ -22,8 +22,8 @@ class _ResponseListWidgetState extends State<ResponseListWidget> {
         builder: (context, arStream) => arStream.hasData
             ? ListView.builder(
                 shrinkWrap: true,
-                itemBuilder: (context, index) => ListTile(
-                    title: Text(arStream.data[index].activity.question)))
+                itemBuilder: (context, index) =>
+                    ListTile(title: Text(arStream.data[index].activity)))
             : Center(
                 child: CircularProgressIndicator(),
               ));

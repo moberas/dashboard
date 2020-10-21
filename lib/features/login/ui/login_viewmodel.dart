@@ -11,38 +11,12 @@ import '../../../locator.dart';
 class LoginViewModel extends BaseViewModel with Validators {
   final AuthenticationService _authenticationService =
       locator<AuthenticationService>();
-  //final DialogService _dialogService = locator<DialogService>();
+
   final NavigationService _navigationService = locator<NavigationService>();
 
   final SnackbarService _snackbarService = locator<SnackbarService>();
 
-  Future checkSignInResult(result) async {
-    if (result is bool) {
-      if (result) {
-        /*await _analyticsService.logLogin('email');
-        unawaited(_navigationService
-            .pushNamedAndRemoveUntil(Routes.startupViewRouter)); */
-      } else {
-        /*await _dialogService.showDialog(
-          title: 'Erro na autenticação',
-          description: 'Senha ou usuário inválidos.',
-        );*/
-      }
-    } else {
-      /*await _dialogService.showDialog(
-        title: 'Erro na autenticação',
-        description: result,
-      );*/
-    }
-  }
-
-  /*void navigateToSignUp() {
-    _navigationService.navigateTo(Routes.signUpViewRouter);
-  }
-
-  void navigateToPasswordRecovery() {
-    _navigationService.navigateTo(Routes.passwordRecoveryViewRouter);
-  }*/
+  Future checkSignInResult(result) async {}
 
   Future<void> login(
       {@required String email, @required String password}) async {
