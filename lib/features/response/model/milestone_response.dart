@@ -8,7 +8,7 @@ class MilestoneResponse {
 
   MilestoneResponse({this.milestone, this.responseDate});
 
-  String get formatedDate => Global.SDF.format(this.responseDate);
+  String get formatedDate => Global.sdf.format(this.responseDate);
 
   factory MilestoneResponse.fromJson(Map<String, dynamic> data, String id) {
     if (data == null) return null;

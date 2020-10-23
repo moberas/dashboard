@@ -6,7 +6,7 @@ import 'package:moberas_dashboard/features/response/model/activity_response.dart
 import 'package:moberas_dashboard/features/response/model/milestone_response.dart';
 
 class Global {
-  static final DateFormat SDF = DateFormat('dd/MM/yyyy HH:mm');
+  static final DateFormat sdf = DateFormat('dd/MM/yyyy HH:mm');
   static final Map models = {
     UserProfile: (data, documentID) => UserProfile.fromData(data),
     ThemeCfg: (data, documentID) => ThemeCfg.fromJson(data),

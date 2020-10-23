@@ -14,7 +14,7 @@ class ActivityResponse {
       this.responseUserUid,
       this.responseValue});
 
-  String get formatedDate => Global.SDF.format(this.responseDate);
+  String get formatedDate => Global.sdf.format(this.responseDate);
 
   factory ActivityResponse.fromJson(Map<String, dynamic> data, String id) {
     if (data == null) return null;
