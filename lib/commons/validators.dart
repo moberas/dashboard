@@ -10,8 +10,6 @@ class Validators {
 
   final crmCodeRegExp = RegExp(r'^[0-9]{7}?$');
 
-  static final _justNumbersRegExp = RegExp(r'^[0-9]+$');
-
   String validateEmail(String value) {
     if (!isEmail(value.trim())) {
       return 'Email inválido';

@@ -28,7 +28,7 @@ class PacientThemeView extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
             createTextWidget('Nome: ' + pacient.displayName),
-            createTextWidget('Pontuação: ' + pacient.score.toString()),
+            createTextWidget(_getPacientStatusString(pacient.online)),
           ],
         ),
       ),

@@ -1,5 +1,3 @@
-import 'package:flutter/material.dart';
-import 'package:logging/logging.dart';
 import 'package:moberas_dashboard/features/login/models/user_profile.dart';
 import 'package:moberas_dashboard/features/pacient/services/pacient_service_interface.dart';
 import 'package:moberas_dashboard/features/response/model/activity_response.dart';
@@ -27,8 +25,6 @@ class PacientProfileViewModel extends MultipleFutureViewModel {
   UserProfile selectedPacient;
   bool milestoneSortAscending = true;
   bool dynamicSortAscending = true;
-
-  final _log = Logger('PacientProfileViewModel');
 
   final NavigationService _navigationService = locator<NavigationService>();
   final IPacientService _pacientService = locator<IPacientService>();

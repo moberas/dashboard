@@ -32,7 +32,7 @@ class UserProfile {
       this.steps.values.reduce((sum, element) => sum + element);
 
   factory UserProfile.fromData(Map<String, dynamic> data) {
-    var up = null;
+    var up;
 
     try {
       up = UserProfile(
@@ -46,12 +46,10 @@ class UserProfile {
           steps: Map<String, int>.from(data['steps'] ?? {'10/10/2020:0'}),
           uid: data['uid'],
           status: data['status'] ?? 'inativo');
-      return up;
     } catch (e) {
       Logger('UserProfile').severe('Erro fromData', e);
-    } finally {
-      return up;
     }
+    return up;
   }
 
   Future<Map<String, dynamic>> toJson() async {

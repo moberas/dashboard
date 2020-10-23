@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:moberas_dashboard/features/login/models/user_profile.dart';
-import 'package:moberas_dashboard/features/response/model/milestone_response.dart';
 import 'package:stacked/stacked.dart';
 
 import 'pacient_profile_viewmodel.dart';

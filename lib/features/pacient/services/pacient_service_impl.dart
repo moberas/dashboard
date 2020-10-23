@@ -5,8 +5,8 @@ import 'package:logging/logging.dart';
 import 'package:moberas_dashboard/database/firestore.dart';
 import 'package:moberas_dashboard/features/login/models/user_profile.dart';
 import 'package:moberas_dashboard/features/pacient/models/theme_cfg.dart';
-import 'package:moberas_dashboard/features/response/model/milestone_response.dart';
 import 'package:moberas_dashboard/features/response/model/activity_response.dart';
+import 'package:moberas_dashboard/features/response/model/milestone_response.dart';
 
 import 'pacient_service_interface.dart';
 
@@ -17,7 +17,6 @@ class IPacientServiceImpl extends IPacientService {
   String milestoneResponsePath =
       '/users/#uid/private_profile/#uid/survey/#uid/milestone_responses';
 
-  final Firestore _firestore = Firestore.instance;
   final _log = Logger('IPacientService');
   final HttpsCallable callableMobErasPacientPush =
       CloudFunctions.instance.getHttpsCallable(

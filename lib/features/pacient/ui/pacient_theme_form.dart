@@ -24,7 +24,7 @@ class PacientThemeForm extends ViewModelWidget<PacientThemeViewModel> {
           child: SingleChildScrollView(
             child: Form(
                 key: model.formKey,
-                autovalidate: true,
+                autovalidateMode: AutovalidateMode.disabled,
                 child: Center(
                   child: Padding(
                     padding: const EdgeInsets.all(18.0),
